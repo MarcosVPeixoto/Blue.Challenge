@@ -24,9 +24,6 @@ namespace Blue.Challenge.Infra.Configurations
                 .HasColumnName("Email")
                 .HasMaxLength(50);
 
-            builder.HasMany(x => x.Contacts)
-                   .WithOne(x => x.User)
-                   .HasForeignKey(x => x.UserId);
-        }
+                    }
     }
 }

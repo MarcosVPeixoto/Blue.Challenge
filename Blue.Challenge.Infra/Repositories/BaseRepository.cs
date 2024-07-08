@@ -16,6 +16,11 @@ namespace Blue.Challenge.Infra.Repositories
         {
             _context.Remove(entity);
         }
+        
+        public void Update<T>(T entity)
+        {
+            _context.Update(entity);
+        }
 
         public async Task SaveChangesAsync()
         {

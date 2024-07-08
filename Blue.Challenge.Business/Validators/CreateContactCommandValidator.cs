@@ -12,6 +12,14 @@ namespace Blue.Challenge.Business.Validators
                 .NotEmpty()
                 .WithMessage("Nome não pode ser nulo");
 
+            RuleFor(x => x.Email)
+                .Must(x => x.Contains("@"))
+                .WithMessage("Email deve possuir @");
+
+            RuleFor(x => x.Phone)
+                .Must(x => x.All(x => char.IsDigit(x)))
+                .WithMessage("Apenas números no telefone");
+
         }
     }
 }

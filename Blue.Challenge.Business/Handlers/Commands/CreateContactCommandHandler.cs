@@ -29,7 +29,7 @@ namespace Blue.Challenge.Business.Handlers.Commands
                 throw new ValidationException(validation.Errors);
             var userId = _identityService.GetUserId();
             var user = await _userRepository.GetByUserId(userId);
-            var contact = new Contact(request.Name, request.Email, request.Phone, user.Id);
+            var contact = new Contact(request.Name, request.Email, request.Phone, user.Id) ;            
             await _contactRepository.AddAsync(contact);
             await _contactRepository.SaveChangesAsync();
             return _mapper.Map<GetContactResponse>(contact);

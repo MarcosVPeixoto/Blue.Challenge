@@ -1,7 +1,5 @@
 ﻿using Blue.Challenge.Business.Commands;
-using Blue.Challenge.Business.Exceptions;
 using Blue.Challenge.Business.Responses.Commands;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,7 @@ namespace Blue.Challenge.App.Controllers
         private readonly IMediator _mediator = mediator;
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("User")]
         public async Task<Guid> CreateUser(CreateUserCommand command)
         {
             return await _mediator.Send(command);

@@ -4,6 +4,7 @@
     {
         Task AddAsync<T>(T entity);
         void Remove<T>(T entity);
+        void Update<T>(T entity);
         Task SaveChangesAsync();
     }
 }

@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Blue.Challenge.Business.Commands
 {
-    public record LoginCommand(string email, string password) : IRequest<LoginCommandResponse>
+    public record LoginCommand : IRequest<LoginCommandResponse>
     {
-        public string Email { get; set; } = email;
-        public string Password { get; set; } = password;
+        public string Email { get; set; }
+        public string Password { get; set; } 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Blue.Challenge.Business.Extensions;
+﻿using Blue.Challenge.App.Middlewares;
+using Blue.Challenge.Business.Extensions;
 using Blue.Challenge.Business.Mapper;
 using Blue.Challenge.Infra.Context;
 using Blue.Challenge.Infra.Extensions;
@@ -14,19 +15,26 @@ namespace Blue.Challenge.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors(options => options.AddPolicy("AllowAll", builder =>
+            services.AddCors(options =>
             {
-                builder.AllowAnyMethod();
-                builder.SetIsOriginAllowed(x => true);
-                builder.AllowCredentials();
-            }));
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed((host) => true);
+                }
+                    );
+            });
+
             services.AddHttpClient();
             var b =  Configuration.GetConnectionString("DefaultConnection");
             services.AddHttpContextAccessor();
             services.AddAutoMapper(typeof(ChallengeMapper));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Solar Web API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Blue Challenge API", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -63,19 +71,21 @@ namespace Blue.Challenge.App
             services.AddAuthentication(Configuration);
             services.AddAuthorization();
             services.AddRepositories();
+            services.AddScoped<ExceptionHandlerMiddleware>();
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseCors("AllowAll");
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseEndpoints(endpoints => endpoints.MapControllers().RequireAuthorization());
-            
-            
+
         }
     }
 }

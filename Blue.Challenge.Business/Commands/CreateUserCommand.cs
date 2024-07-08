@@ -2,11 +2,11 @@
 
 namespace Blue.Challenge.Business.Commands
 {
-    public record CreateUserCommand(string name, string email, string password) : IRequest<Guid>
+    public record CreateUserCommand : IRequest<Guid>
     {
-        public string Name { get; set; } = name;
-        public string Email { get; set; } = email;
-        public string Password { get; set; } = password;  
+        public string Name { get; set; } 
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 
     

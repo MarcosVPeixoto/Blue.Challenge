@@ -24,10 +24,17 @@ namespace Blue.Challenge.App.Controllers
             return await _mediator.Send(command);
         }
 
-        [HttpDelete("Id")]
-        public async Task<int> Delete([FromRoute]int id)
+        [HttpDelete("{id}")]
+        public async Task<List<GetContactResponse>> Delete([FromRoute]int id)
         {
             return await _mediator.Send(new DeleteContactCommand (id));
+        }
+        
+        [HttpPut("{id}")]
+        public async Task<GetContactResponse> Update([FromRoute]int id, UpdateContactCommand command)
+        {
+            command.Id = id;
+            return await _mediator.Send(new UpdateContactCommand());
         }
     }
 }
