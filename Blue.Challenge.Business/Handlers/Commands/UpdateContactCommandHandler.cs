@@ -3,6 +3,7 @@ using Blue.Challenge.Business.Commands;
 using Blue.Challenge.Business.Interfaces;
 using Blue.Challenge.Business.Responses;
 using Blue.Challenge.Business.Responses.Queries;
+using Blue.Challenge.Business.Validators;
 using Blue.Challenge.Infra.Interfaces;
 using MediatR;
 using System.Net;
@@ -18,6 +19,10 @@ namespace Blue.Challenge.Business.Handlers.Commands
 
         public async Task<RequestHandlerResponse> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
         {
+            var validator = new UpdateContactCommandValidator();
+            var validation = validator.Validate(request);
+            if (!validation.IsValid)
+                return new RequestHandlerResponse(validation.Errors, HttpStatusCode.BadRequest);
             var contact = await _contactRepository.GetByIdAsync(request.Id);
             if (contact == null)
                 return new RequestHandlerResponse("Contato não encontrado", HttpStatusCode.BadRequest);

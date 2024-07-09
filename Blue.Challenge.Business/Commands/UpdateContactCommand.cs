@@ -1,5 +1,4 @@
 ﻿using Blue.Challenge.Business.Responses;
-using Blue.Challenge.Business.Responses.Queries;
 using MediatR;
 
 namespace Blue.Challenge.Business.Commands

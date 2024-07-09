@@ -4,16 +4,16 @@ using FluentValidation.Validators;
 
 namespace Blue.Challenge.Business.Validators
 {
-    public class CreateContactCommandValidator : AbstractValidator<CreateContactCommand>
+    public class UpdateContactCommandValidator : AbstractValidator<UpdateContactCommand>
     {
-        public CreateContactCommandValidator()
+        public UpdateContactCommandValidator() 
         {
             RuleFor(x => x.Name)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Nome não pode ser nulo")
-                .MaximumLength(50)
-                .WithMessage("Limite máximo de 50 caracteres ultrapassado");
+               .NotNull()
+               .NotEmpty()
+               .WithMessage("Nome não pode ser nulo")
+               .MaximumLength(50)
+               .WithMessage("Limite máximo de 50 caracteres ultrapassado");
 
             RuleFor(x => x.Email)
                 .NotEmpty()
@@ -32,7 +32,6 @@ namespace Blue.Challenge.Business.Validators
                 .WithMessage("Apenas números no telefone")
                 .MaximumLength(11)
                 .WithMessage("Limite máximo de 11 caracteres ultrapassado");
-
         }
     }
 }

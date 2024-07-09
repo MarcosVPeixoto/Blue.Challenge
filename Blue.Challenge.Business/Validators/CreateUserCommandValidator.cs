@@ -13,7 +13,9 @@ namespace Blue.Challenge.Business.Validators
                 .NotNull()
                 .WithMessage("Email não pode ser nulo")
                 .EmailAddress(EmailValidationMode.AspNetCoreCompatible)
-                .WithMessage("Formato de email inválido");
+                .WithMessage("Formato de email inválido")
+                .MaximumLength(50)
+                .WithMessage("Limite máximo de 50 caracteres ultrapassado");
 
             RuleFor(x => x.Password)
                 .NotEmpty()
@@ -23,7 +25,9 @@ namespace Blue.Challenge.Business.Validators
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Nome não pode ser nulo");
+                .WithMessage("Nome não pode ser nulo")
+                .MaximumLength(50)
+                .WithMessage("Limite máximo de 50 caracteres ultrapassado");
         }
     }
 }
