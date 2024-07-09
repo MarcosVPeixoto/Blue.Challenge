@@ -1,4 +1,5 @@
-﻿using Blue.Challenge.Business.Commands;
+﻿using Blue.Challenge.App.Extensions;
+using Blue.Challenge.Business.Commands;
 using Blue.Challenge.Business.Responses.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -14,16 +15,16 @@ namespace Blue.Challenge.App.Controllers
 
         [AllowAnonymous]
         [HttpPost("User")]
-        public async Task<Guid> CreateUser(CreateUserCommand command)
+        public async Task<ActionResult<Guid>> CreateUser(CreateUserCommand command)
         {
-            return await _mediator.Send(command);
+            return this.ValidateResponse(await _mediator.Send(command));
         }
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<LoginCommandResponse> Login(LoginCommand command)
+        public async Task<ActionResult<LoginCommandResponse>> Login(LoginCommand command)
         {
-            return await _mediator.Send(command);            
+            return this.ValidateResponse(await _mediator.Send(command)); 
         }
 
 

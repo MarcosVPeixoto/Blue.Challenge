@@ -1,6 +1,6 @@
 ﻿namespace Blue.Challenge.Business.Responses.Queries
 {
-    public record GetContactResponse
+    public record GetContactQueryResponse
     {
         public string Name { get; set; }
         public string Email { get; set; }

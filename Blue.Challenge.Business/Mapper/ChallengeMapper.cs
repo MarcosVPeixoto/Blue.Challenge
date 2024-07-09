@@ -8,7 +8,7 @@ namespace Blue.Challenge.Business.Mapper
     {
         public ChallengeMapper()
         {
-            CreateMap<Contact, GetContactResponse>();
+            CreateMap<Contact, GetContactQueryResponse>();
         }
     }
 }

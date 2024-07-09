@@ -10,7 +10,9 @@ namespace Blue.Challenge.Business.Validators
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Email não pode ser nulo");
+                .WithMessage("Email não pode ser nulo")
+                .Must(x => x.Contains("@"))
+                .WithMessage("Email precisa ter @");
 
             RuleFor(x => x.Password)
                 .NotEmpty()

@@ -1,4 +1,5 @@
-﻿using Blue.Challenge.Business.Commands;
+﻿using Blue.Challenge.App.Extensions;
+using Blue.Challenge.Business.Commands;
 using Blue.Challenge.Business.Queries;
 using Blue.Challenge.Business.Responses.Queries;
 using MediatR;
@@ -13,28 +14,28 @@ namespace Blue.Challenge.App.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpGet]
-        public async Task<List<GetContactResponse>> GetAll()
+        public async Task<List<GetContactQueryResponse>> GetAll()
         {
             return await _mediator.Send(new GetContactsQuery());
         }
 
         [HttpPost]
-        public async Task<GetContactResponse> Post(CreateContactCommand command)
+        public async Task<ActionResult<GetContactQueryResponse>> Post(CreateContactCommand command)
         {
-            return await _mediator.Send(command);
+            return this.ValidateResponse(await _mediator.Send(command));
         }
 
         [HttpDelete("{id}")]
-        public async Task<List<GetContactResponse>> Delete([FromRoute]int id)
+        public async Task<ActionResult<List<GetContactQueryResponse>>> Delete([FromRoute]int id)
         {
-            return await _mediator.Send(new DeleteContactCommand (id));
+            return this.ValidateResponse(await _mediator.Send(new DeleteContactCommand { Id = id }));
         }
         
         [HttpPut("{id}")]
-        public async Task<GetContactResponse> Update([FromRoute]int id, UpdateContactCommand command)
+        public async Task<ActionResult<GetContactQueryResponse>> Update([FromRoute]int id, UpdateContactCommand command)
         {
             command.Id = id;
-            return await _mediator.Send(new UpdateContactCommand());
+            return this.ValidateResponse(await _mediator.Send(new UpdateContactCommand()));
         }
     }
 }

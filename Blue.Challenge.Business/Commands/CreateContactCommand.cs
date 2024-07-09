@@ -1,9 +1,9 @@
-﻿using Blue.Challenge.Business.Responses.Queries;
+﻿using Blue.Challenge.Business.Responses;
 using MediatR;
 
 namespace Blue.Challenge.Business.Commands
 {
-    public class CreateContactCommand(string name, string email, string phone) :IRequest<GetContactResponse>
+    public class CreateContactCommand(string name, string email, string phone) :IRequest<RequestHandlerResponse>
     {
         public string Name { get; set; } = name;
         public string Email { get; set; } = email;

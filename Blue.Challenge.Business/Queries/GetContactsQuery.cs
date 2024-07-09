@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Blue.Challenge.Business.Queries
 {
-    public class GetContactsQuery : IRequest<List<GetContactResponse>>
+    public class GetContactsQuery : IRequest<List<GetContactQueryResponse>>
     {
 
     }
