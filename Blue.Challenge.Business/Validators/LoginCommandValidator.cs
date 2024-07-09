@@ -1,5 +1,6 @@
 ﻿using Blue.Challenge.Business.Commands;
 using FluentValidation;
+using FluentValidation.Validators;
 
 namespace Blue.Challenge.Business.Validators
 {
@@ -10,7 +11,9 @@ namespace Blue.Challenge.Business.Validators
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("Email não pode ser nulo");
+                .WithMessage("Email não pode ser nulo")
+                .EmailAddress(EmailValidationMode.AspNetCoreCompatible)
+                .WithMessage("Formato de email inválido");
 
             RuleFor(x => x.Password)
                 .NotEmpty()
